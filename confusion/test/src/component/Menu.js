@@ -1,57 +1,33 @@
-import React , {Component, Fragment} from 'react';
+import React  from 'react';
 import { Card,CardImgOverlay,CardImg,CardTitle } from 'reactstrap';
-import Details from './dishDetailComponent';
-import Header from './header';
-import Footer from './footer';
-
-class Menu extends Component{
-
-// constructor , super very very very important
-constructor(props){
-    super(props);
-    this.state={
-        selectedDish:null
-        }
-    };
-
-    clicked(dish){
-        this.setState({
-            selectedDish: dish
-        });
-    };
-
-render(){
-
-    const menu=this.props.dishes.map(dish => {
-        // donnot forget return
-        return(
-            <div  key={dish.id} className="col-12 col-md-5 mt-5 m-1">
-            
-            <Card onClick={() => this.clicked(dish)}>
-                <CardImg width="100%" src={dish.image}/>
-                <CardImgOverlay>
-                    <CardTitle>{dish.name}</CardTitle>
-                </CardImgOverlay>
-            </Card>
-        </div>
-        )
-        
-    });
-
-    return(
-        <Fragment>
-            <Header />
-            <div className="container">
-                <div className="row">
-                        {menu}
-                </div>
-                <Details className="mt-5" dishData={this.state.selectedDish} />
-            </div>
-            <Footer />
-        </Fragment>
+function RenderMenuItem ({dish, onClick}) {
+    return (
+        <Card onClick={(dish) => onClick(dish.id)}>
+            <CardImg width="100%" src={dish.image} alt={dish.name} />
+            <CardImgOverlay>
+                <CardTitle>{dish.name}</CardTitle>
+            </CardImgOverlay>
+        </Card>
     );
 }
-}
 
+const Menu = (props) => {
+    const menu = props.dishes.map((dish) => {
+        return (
+            <div className="col-12 col-md-5 m-1"  key={dish.id}>
+                <RenderMenuItem dish={dish} onClick={props.onClick} />
+            </div>
+        );
+    });
+
+
+    return (
+        <div className="container">
+            <div className="row">
+                {menu}
+            </div>
+        </div>
+    );
+}
 
 export default Menu;
