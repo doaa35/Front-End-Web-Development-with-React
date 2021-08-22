@@ -4,8 +4,13 @@ import Home from './home';
 import Menu from './Menu';
 import Header from './header';
 import Footer from './footer';
+import Contact from './contactus';
 import Details from './dishDetailComponent';
 import { data } from '../shared_Data/sharedData'
+import { DISHES } from '../shared_Data/dishes'
+import { COMMENTS } from '../shared_Data/comments'
+import { LEADERS } from '../shared_Data/leaders'
+import { PROMOTIONS } from '../shared_Data/promotions'
 
 class Main extends Component {
 
@@ -13,14 +18,18 @@ class Main extends Component {
         super(props);
 
         this.state = {
-            comments: data.comments,
-            dishes: data
+            dishes: DISHES,
+            comments: COMMENTS,
+            leaders: LEADERS,
+            promotion: PROMOTIONS
+
         };
 
     }
-
+        
     render() {
 
+        
         // const DishData = ({match}) => {
         //     return(
         //         <Details 
@@ -33,12 +42,24 @@ class Main extends Component {
         //     );
         // };
 
+        const HomePage= () =>{
+            return(
+                <Home dish={this.state.dishes.filter( dish => dish.featured)[0]}
+                      comment={this.state.comments.filter( comment => comment.featured)[0]}
+                      leader={this.state.leaders.filter( leader => leader.featured)[0]}
+                      promotion={this.state.promotion.filter( promo => promo.featured)[0]}
+                
+                />
+            )
+        }
+
         return (
             <div>
                 <Header />
                 <Switch>
-                    <Route path="/home.js" component={Home} />
+                    <Route path="/home.js" component={HomePage} />
                     <Route exact path="/Menu.js" component={() => <Menu dishes={this.state.dishes}/> }/>
+                    <Route exact path="/contactus.js" component={Contact} />
                 </Switch>
                 {/* <Redirect to="/src/component/home.js" /> */}
                 <Footer />
