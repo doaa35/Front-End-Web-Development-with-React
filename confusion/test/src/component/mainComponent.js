@@ -5,6 +5,7 @@ import Menu from './Menu';
 import Header from './header';
 import Footer from './footer';
 import Contact from './contactus';
+import About from './AboutComponent';
 import Details from './dishDetailComponent'
 import { DISHES } from '../shared_Data/dishes'
 import { COMMENTS } from '../shared_Data/comments'
@@ -39,6 +40,11 @@ class Main extends Component {
             )
         }
 
+        const AboutPage = () =>{
+            return(
+                <About leaders={this.state.leaders} />
+            )
+        }
          const DishData = ({match}) => {
             return(
                 <Details 
@@ -60,6 +66,7 @@ class Main extends Component {
                     <Route exact path="/Menu.js" component={() => <Menu dishes={this.state.dishes}/> }/>
                     <Route path='/Menu.js/:dishId' component={DishData} />
                     <Route exact path="/contactus.js" component={Contact} />
+                    <Route path="/AboutComponent.js" component={AboutPage} />
                 </Switch>
                 {/* <Redirect to="/src/component/home.js" /> */}
                 <Footer />

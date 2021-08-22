@@ -34,7 +34,7 @@ class Header extends Component{
                                     <NavLink className="nav-link"  to='/home.js'><span className="fa fa-home fa-lg"></span> Home</NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink className="nav-link" to='/aboutus.js'><span className="fa fa-info fa-lg"></span> About Us</NavLink>
+                                    <NavLink className="nav-link" to='/AboutComponent.js'><span className="fa fa-info fa-lg"></span> About Us</NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink className="nav-link" to='/Menu.js'><span className="fa fa-list fa-lg"></span> Menu</NavLink>
