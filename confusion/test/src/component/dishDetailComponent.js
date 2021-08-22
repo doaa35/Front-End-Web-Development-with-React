@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card,CardBody,CardImg,CardText,CardTitle } from 'reactstrap';
+import { Card,CardBody,CardImg,CardText,CardTitle,Breadcrumb, BreadcrumbItem  } from 'reactstrap';
+import { Link } from 'react-router-dom'
+
 function RenderDish({dish}){
     if(dish != null){
         return(
@@ -43,7 +45,7 @@ function RenderComments({comments}){
         )
     })
     return (
-        <div className='col-12 col-md-5 m-1'>
+        <div>
             <h4> Comments </h4>
             <ul className='list-unstyled'>
                 {cmts}
@@ -59,13 +61,29 @@ const  Details = (props) =>{
             <div></div>
         )
     }
+
+    return(
         <div className ="container">
-            <div className ="row">
-                <RenderDish dish= {props.dish} />
-                <RenderComments comments={props.dish.comment} />
-    
+            <div className="row" >
+            <Breadcrumb>
+                <BreadcrumbItem>
+                    <Link to="/Menu.js">Menu</Link>
+                </BreadcrumbItem> 
+                <BreadcrumbItem active>
+                    {props.dish.name}   
+                </BreadcrumbItem>
+            </Breadcrumb>
+            <div className="col-12">
+                <h3>{props.dish.name}</h3>
+                <hr />
+            </div>  
+
+                <RenderDish dish={props.dish} />                 
+                <RenderComments comments={props.comments} />
+        
             </div>
         </div>
+    )
     }
 
 
