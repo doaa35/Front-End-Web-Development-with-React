@@ -1,9 +1,9 @@
 
-  import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 
 import {Button, Modal, ModalBody, ModalHeader, Label, Row, Col} from "reactstrap";
 
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, Form, Errors, actions } from 'react-redux-form';
 
 const required = (val) => val && val.length; 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -25,9 +25,9 @@ class CommentForm extends Component{
     }
 
     handleCommentFormSubmit(values) {
-        console.log("Current State is: " + JSON.stringify(values));
-        alert("Current State is: " + JSON.stringify(values));
-
+        console.log('Current State is: ' + JSON.stringify(values));
+        alert('Current State is: ' + JSON.stringify(values));
+        // event.preventDefault();
 
     }
 
@@ -50,8 +50,7 @@ class CommentForm extends Component{
                     <ModalHeader toggle={this.toggleCommentFormModal}> Submit Comment </ModalHeader>
                     <ModalBody>
                        
-                        <LocalForm onSubmit={(values) => this.handleCommentFormSubmit(values)}>
-                          
+                    <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>                          
                             <Row className="form-group">
                                 <Label htmlFor="rating" md={12} >Rating</Label>
                                 <Col md={12}>
@@ -63,7 +62,6 @@ class CommentForm extends Component{
                                             required
                                         }}
                                     >
-                                        <option>Please Select</option>
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -138,7 +136,7 @@ class CommentForm extends Component{
                                 </Col>
                             </Row>
 
-                        </LocalForm>
+                        </Form>
 
                     </ModalBody>
                 </Modal>

@@ -8,17 +8,15 @@ import Footer from './footer';
 import Contact from './contactus';
 import About from './AboutComponent';
 import Details from './dishDetailComponent'
-import { DISHES } from '../shared_Data/dishes'
-import { COMMENTS } from '../shared_Data/comments'
-import { LEADERS } from '../shared_Data/leaders'
-import { PROMOTIONS } from '../shared_Data/promotions'
-import { addComment, fetchDishes } from '../redux/ActionCreators';
+import { addComment, fetchDishes} from '../redux/ActionCreators';
+import { actions } from 'react-redux-form';
 
 
 const mapDispatchToProps = dispatch => ({
   
     addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-    fetchDishes: () => { dispatch(fetchDishes())}
+    fetchDishes: () => { dispatch(fetchDishes())},
+    resetFeedbackForm: () => { dispatch(actions.reset('feedback'))},
 
   });
 
@@ -80,7 +78,7 @@ class Main extends Component {
                     <Route path="/home.js" component={HomePage} />
                     <Route exact path="/Menu.js" component={() => <Menu dishes={this.props.dishes}/> }/>
                     <Route path='/Menu.js/:dishId' component={DishData}  />
-                    <Route exact path="/contactus.js" component={Contact} />
+                    <Route exact path="/contactus.js" component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
                     <Route path="/AboutComponent.js" component={() => <About leaders={this.props.leaders} />}  />
                 </Switch>
                 {/* <Redirect to="/src/component/home.js" /> */}
