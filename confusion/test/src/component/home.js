@@ -1,18 +1,31 @@
 import React from 'react';
 import { Card, CardBody, CardText, CardSubtitle, CardImg,CardTitle } from 'reactstrap';
+import { Loading } from '../redux/LoadingComponent';
 
-function RenderCard({item}) {
 
-  return(
-      <Card>
-          <CardImg src={item.image} alt={item.name} />
-          <CardBody>
-            <CardTitle>{item.name}</CardTitle>
-            {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle> : null }
-            <CardText>{item.description}</CardText>
-          </CardBody>
-      </Card>
-  );
+function RenderCard({item, isLoading, errMess}) {
+    
+    if (isLoading) {
+        return(
+                <Loading />
+        );
+    }
+    else if (errMess) {
+        return(
+                <h4>{errMess}</h4>
+        );
+    }
+    else 
+        return(
+            <Card>
+                <CardImg src={item.image} alt={item.name} />
+                <CardBody>
+                <CardTitle>{item.name}</CardTitle>
+                {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle> : null }
+                <CardText>{item.description}</CardText>
+                </CardBody>
+            </Card>
+        );
 
 }
 
@@ -27,7 +40,7 @@ function Home(props) {
                   <RenderCard item={props.promotion} />
               </div>
               <div className="col-12 col-md m-1">
-                  <RenderCard item={props.leader} />
+                  <RenderCard item={props.dish} isLoading={props.dishesLoading} errMess={props.dishesErrMess}  />
               </div>
           </div>
       </div>

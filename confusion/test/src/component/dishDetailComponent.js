@@ -3,6 +3,7 @@ import { Card,CardBody,CardImg,CardText,CardTitle,Breadcrumb, BreadcrumbItem  } 
 import { Link } from 'react-router-dom'
 import {Button, Modal, ModalBody, ModalHeader, Label, Row, Col} from "reactstrap";
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Loading } from '../redux/LoadingComponent';
 
 const required = (val) => val && val.length; 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -12,7 +13,6 @@ class CommentForm extends Component {
 
     constructor(props) {
         super(props);
-
 
         this.state = {
             isCommentFormModalOpen: false
@@ -204,13 +204,31 @@ function RenderComments({comments, addComment, dishId}){
 }
 
 const  Details = (props) =>{
-
-    if (props.dish == null){
+    const dish = props.dish
+    if (props.isLoading) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    else if (props.errMess) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <h4>{props.errMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    else if (props.dish == null) {
         return(
             <div></div>
         )
     }
-
+    else if (props.dish != null) {
     return(
         <div className ="container">
             <div className="row" >
@@ -228,15 +246,17 @@ const  Details = (props) =>{
             </div>  
 
                 <RenderDish dish={props.dish} />                 
-                <RenderComments comments={props.comments}
+                <RenderComments 
+                                comments={props.comments}
                                 addComment={props.addComment}
                                 dishId={props.dish.id}
-               />
+                   />
 
             </div>
         </div>
     )
-    }
+}
+}
 
 
 export default Details
