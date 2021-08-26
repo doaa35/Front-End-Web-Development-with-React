@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import {Button, Modal, ModalBody, ModalHeader, Label, Row, Col} from "reactstrap";
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from '../redux/LoadingComponent';
+import { baseUrl } from '../shared_Data/baseUrl';
 
 const required = (val) => val && val.length; 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
@@ -154,7 +155,7 @@ function RenderDish({dish}){
         return(
             <div className="col-12 col-md-5 m-1">
                 <Card>
-                    <CardImg top src={dish.image} />
+                <CardImg top src={baseUrl + dish.image} alt={dish.name} />
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
                         <CardText>{dish.price} <br></br> {dish.description}</CardText>
@@ -204,7 +205,6 @@ function RenderComments({comments, addComment, dishId}){
 }
 
 const  Details = (props) =>{
-    const dish = props.dish
     if (props.isLoading) {
         return(
             <div className="container">
